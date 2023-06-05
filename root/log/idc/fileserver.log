@@ -1,0 +1,91 @@
+2023-05-31 01:49:56 Client（10.0.2.15）is connected。
+2023-05-31 01:49:56 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-05-31 01:49:56 10.0.2.15 login ok.
+2023-05-31 01:49:56 Client（10.0.2.15）is connected。
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123717_10053.json(107958) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115300_6646.json(107979) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123417_9859.json(107916) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123917_10126.json(107922) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123217_9716.json(107943) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115301_6686.json(107964) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123817_10120.json(107941) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115138_6286.json(107959) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115303_6806.json(107983) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115145_6577.json(107949) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115139_6326.json(107926) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115145_6537.json(107949) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115104_6212.json(107969) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115144_6497.json(107956) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115140_6366.json(107954) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115302_6766.json(107931) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115141_6416.json(107948) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123617_9872.json(107940) ...2023-05-31 01:49:56 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-05-31 01:49:56 10.0.2.15 login ok.
+ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115142_6457.json(107986) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123517_9870.json(107934) ...2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123717_10053.json(107958) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115300_6646.json(107979) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123317_9803.json(107946) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123417_9859.json(107916) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123917_10126.json(107922) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527124017_10130.json(107973) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123217_9716.json(107943) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115301_6686.json(107964) ...ok.
+2023-05-31 01:49:56 recv /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115302_6726.json(107931) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123817_10120.json(107941) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115138_6286.json(107959) ...ok.
+ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115303_6806.json(107983) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115145_6577.json(107949) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115139_6326.json(107926) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115145_6537.json(107949) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115104_6212.json(107969) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115144_6497.json(107956) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115140_6366.json(107954) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115302_6766.json(107931) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115141_6416.json(107948) ...ok.
+2023-05-31 01:49:56 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123617_9872.json(107940) ...ok.
+2023-05-31 01:49:57 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115142_6457.json(107986) ...ok.
+2023-05-31 01:49:57 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123517_9870.json(107934) ...ok.
+2023-05-31 01:49:57 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527123317_9803.json(107946) ...ok.
+2023-05-31 01:49:57 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527124017_10130.json(107973) ...ok.
+2023-05-31 01:49:57 send /home/cis623-vm/root/tmp/tcpputest/SURF_ZH_20230527115302_6726.json(107931) ...ok.
+2023-05-31 01:50:44 parent process is end ...，sig=15。
+2023-05-31 01:50:44 End child process  ，sig=15。
+2023-05-31 01:50:44 End child process  ，sig=15。
+2023-05-31 01:51:58 Client（10.0.2.15）is connected。
+2023-05-31 01:51:58 Client（10.0.2.15）is connected。
+2023-05-31 01:51:58 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-05-31 01:51:58 10.0.2.15 login ok.
+2023-05-31 01:51:58 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-05-31 01:51:58 10.0.2.15 login ok.
+2023-05-31 01:52:03 parent process is end ...，sig=15。
+2023-05-31 01:52:03 End child process  ，sig=15。
+2023-05-31 01:52:03 End child process  ，sig=15。
+2023-05-31 01:54:46 Client（10.0.2.15）is connected。
+2023-05-31 01:54:46 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-05-31 01:54:46 10.0.2.15 login ok.
+2023-05-31 01:54:46 Client（10.0.2.15）is connected。
+2023-05-31 01:54:46 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-05-31 01:54:46 10.0.2.15 login ok.
+2023-05-31 01:56:27 parent process is end ...，sig=15。
+2023-05-31 01:56:27 End child process  ，sig=15。
+2023-05-31 01:56:27 End child process  ，sig=15。
+2023-06-04 13:53:11 Client（10.0.2.15）is connected。
+2023-06-04 13:53:11 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-06-04 13:53:11 10.0.2.15 login ok.
+2023-06-04 13:53:31 Client（10.0.2.15）is connected。
+2023-06-04 13:53:31 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-06-04 13:53:31 10.0.2.15 login ok.
+2023-06-04 13:53:49 parent process is end ...，sig=15。
+2023-06-04 13:53:49 End child process  ，sig=15。
+2023-06-04 13:53:49 End child process  ，sig=15。
+2023-06-04 13:56:14 Client（10.0.2.15）is connected。
+2023-06-04 13:56:14 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-06-04 13:56:14 10.0.2.15 login ok.
+2023-06-04 13:56:14 Client（10.0.2.15）is connected。
+2023-06-04 13:56:14 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-06-04 13:56:14 10.0.2.15 login ok.
+2023-06-04 13:57:28 parent process is end ...，sig=15。
+2023-06-04 13:57:28 End child process  ，sig=15。
+2023-06-04 13:57:28 End child process  ，sig=15。

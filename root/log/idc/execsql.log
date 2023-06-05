@@ -1,0 +1,8 @@
+2023-06-04 13:43:03 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+
+2023-06-04 13:53:11 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-04 13:53:11 File.Open(/project/idc/sql/cleardata.sql) failed.
+2023-06-04 13:53:11 program exit，sig=-1
+
+2023-06-04 13:56:15 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+

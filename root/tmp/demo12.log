@@ -1,0 +1,7 @@
+2023-05-29 22:49:59 客户端（10.0.2.15）已连接。
+2023-05-29 22:49:59 接收：<srvcode>1</srvcode><tel>1392220000</tel><password>123456</password>
+2023-05-29 22:49:59 发送：<retcode>0</retcode><message>成功。</message>
+2023-05-29 22:49:59 接收：<srvcode>2</srvcode><cardid>62620000000001</cardid>
+2023-05-29 22:49:59 发送：<retcode>0</retcode><message>成功。</message><ye>100.58</ye>
+2023-05-29 22:49:59 子进程退出，sig=0。
+2023-05-29 23:57:43 父进程退出，sig=2。

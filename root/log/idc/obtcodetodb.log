@@ -1,0 +1,20 @@
+2023-06-03 22:58:45 加载参数文件（/home/cis623-vm/root/project/idc/ini/stcode.ini）成功，站点数（839）。
+2023-06-03 22:58:45 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-03 22:58:45 stmtins.execute() failed.
+insert into T_ZHOBTCODE(obtid,cityname,provname,lat,lon,height,upttime) values(?,?,?,?*100,?*100,?*10,now())
+1146,Table 'mysql.T_ZHOBTCODE' doesn't exist
+2023-06-03 23:39:53 加载参数文件（/home/cis623-vm/root/project/idc/ini/stcode.ini）成功，站点数（839）。
+2023-06-03 23:39:53 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-03 23:39:53 总记录数=839，插入=839，更新=0，耗时=0.08秒。
+2023-06-04 08:13:45 加载参数文件（/home/cis623-vm/root/project/idc/ini/stcode.ini）成功，站点数（839）。
+2023-06-04 08:13:45 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-04 08:13:46 总记录数=839，插入=0，更新=839，耗时=0.15秒。
+2023-06-04 08:48:37 Load the ini file (/home/cis623-vm/root/project/idc/ini/stcode.ini) sucessful, number of (839) record。
+2023-06-04 08:48:37 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-04 08:48:38 total record=839, insert=0, update=839, time =0.25s。
+2023-06-04 13:53:11 Load the ini file (/home/cis623-vm/root/project/idc/ini/stcode.ini) sucessful, number of (839) record。
+2023-06-04 13:53:11 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-04 13:53:11 total record=839, insert=0, update=839, time =0.38s。
+2023-06-04 13:56:14 Load the ini file (/home/cis623-vm/root/project/idc/ini/stcode.ini) sucessful, number of (839) record。
+2023-06-04 13:56:15 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-04 13:56:15 total record=839, insert=0, update=839, time =0.32s。
