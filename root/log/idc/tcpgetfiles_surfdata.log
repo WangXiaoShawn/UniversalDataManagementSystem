@@ -46,3 +46,8 @@
 2023-06-04 13:56:14 登录(10.0.2.15:5005)成功。
 2023-06-04 13:57:28 程序退出，sig=15
 
+2023-06-05 19:14:23 发送：<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-06-05 19:14:23 接收：ok
+2023-06-05 19:14:23 登录(10.0.2.15:5005)成功。
+2023-06-05 19:16:22 程序退出，sig=15
+

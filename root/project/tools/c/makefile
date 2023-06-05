@@ -29,7 +29,7 @@ MYSQLCPP = /home/cis623-vm/root/project/public/db/mysql/_mysql.cpp
 # 编译参数。
 CFLAGS = -g
 
-all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql
+all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql
 # tcpputfiles fileserver\
      tcpgetfiles execsql dminingmysql xmltodb syncupdate syncincrement syncincrementex\
      deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle\
@@ -79,9 +79,9 @@ execsql:execsql.cpp
 
 
 
-#dminingmysql:dminingmysql.cpp
-#	g++ $(CFLAGS) -o dminingmysql dminingmysql.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp dminingmysql ../bin/.
+dminingmysql:dminingmysql.cpp
+	g++ $(CFLAGS) -o dminingmysql dminingmysql.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp dminingmysql ../bin/.
 
 #xmltodb:xmltodb.cpp _tools.h _tools.cpp
 #	g++ $(CFLAGS) -o xmltodb xmltodb.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
@@ -152,7 +152,7 @@ execsql:execsql.cpp
 #	cp rinetdin ../bin/.
 
 clean:
-	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql
+	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql
 #	rm -f  execsql dminingmysql xmltodb syncupdate syncincrement syncincrementex
 #	rm -f deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle
 #	rm -f dminingoracle syncupdate_oracle syncincrement_oracle syncincrementex_oracle

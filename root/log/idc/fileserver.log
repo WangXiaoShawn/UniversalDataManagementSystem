@@ -89,3 +89,12 @@ ok.
 2023-06-04 13:57:28 parent process is end ...，sig=15。
 2023-06-04 13:57:28 End child process  ，sig=15。
 2023-06-04 13:57:28 End child process  ，sig=15。
+2023-06-05 19:14:23 Client（10.0.2.15）is connected。
+2023-06-05 19:14:23 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><clientpath>/home/cis623-vm/root/tmp/tcpgetest</clientpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpgetfiles_surfdata</pname><clienttype>2</clienttype>
+2023-06-05 19:14:23 10.0.2.15 login ok.
+2023-06-05 19:14:43 Client（10.0.2.15）is connected。
+2023-06-05 19:14:43 strrecvbuffer=<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-06-05 19:14:43 10.0.2.15 login ok.
+2023-06-05 19:16:22 parent process is end ...，sig=15。
+2023-06-05 19:16:22 End child process  ，sig=15。
+2023-06-05 19:16:22 End child process  ，sig=15。

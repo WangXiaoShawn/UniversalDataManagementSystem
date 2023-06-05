@@ -1,35 +1,38 @@
+
 /*
- *  程序名：dminingmysql.cpp，本程序是数据中心的公共功能模块，用于从MySQL数据库源表抽取数据，生成xml文件。
- *  作者：吴从周。
+ * Program Name: dminingmysql.cpp, this program is a common function module of the data center, used to extract data from the MySQL database source table 
+ * and generate xml files.
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/4
 */
 #include "_public.h"
 #include "_mysql.h"
-
-// 程序运行参数的结构体。
 struct st_arg
 {
-  char connstr[101];     // 数据库的连接参数。
-  char charset[51];      // 数据库的字符集。
-  char selectsql[1024];  // 从数据源数据库抽取数据的SQL语句。
-  char fieldstr[501];    // 抽取数据的SQL语句输出结果集字段名，字段名之间用逗号分隔。
-  char fieldlen[501];    // 抽取数据的SQL语句输出结果集字段的长度，用逗号分隔。
-  char bfilename[31];    // 输出xml文件的前缀。
-  char efilename[31];    // 输出xml文件的后缀。
-  char outpath[301];     // 输出xml文件存放的目录。
-  int  maxcount;         // 输出xml文件最大记录数，0表示无限制。
-  char starttime[52];    // 程序运行的时间区间
-  char incfield[31];     // 递增字段名。
-  char incfilename[301]; // 已抽取数据的递增字段最大值存放的文件。
-  char connstr1[101];    // 已抽取数据的递增字段最大值存放的数据库的连接参数。
-  int  timeout;          // 进程心跳的超时时间。
-  char pname[51];        // 进程名，建议用"dminingmysql_后缀"的方式。
+  char connstr[101];     // 数据库的连接参数。// string for connection to the database.
+  char charset[51];      // 数据库的字符集。// database character set / utf-8?
+  char selectsql[1024];  // 从数据源数据库抽取数据的SQL语句。// SQL statement to extract data from the data source database.
+  char fieldstr[501];    // 抽取数据的SQL语句输出结果集字段名，字段名之间用逗号分隔。 ... // SQL statement to extract data from the data source database.
+  char fieldlen[501];    // 抽取数据的SQL语句输出结果集字段的长度，用逗号分隔。 // length of the field name of the result set output by the SQL statement to extract data from the data source database, separated by commas.
+  char bfilename[31];    // 输出xml文件的前缀。// prefix of the output xml file.
+  char efilename[31];    // 输出xml文件的后缀。// suffix of the output xml file.
+  char outpath[301];     // 输出xml文件存放的目录。// directory where the output xml file is stored.
+  int  maxcount;         // 输出xml文件最大记录数，0表示无限制。// maximum number of records in the output xml file, 0 means no limit.
+  char starttime[52];    // 程序运行的时间区间 /// time interval for program operation
+  char incfield[31];     // 递增字段名。// incremental field name.
+  char incfilename[301]; // 已抽取数据的递增字段最大值存放的文件。// file name where the maximum value of the incremental field of the extracted data is stored.
+  char connstr1[101];    // 已抽取数据的递增字段最大值存放的数据库的连接参数。// connection parameters of the database where the maximum value of the incremental field of the extracted data is stored.
+  int  timeout;          // 进程心跳的超时时间。 // timeout of process heartbeat.
+  char pname[51];        // 进程名，建议用"dminingmysql_后缀"的方式。// process name, it is recommended to use the suffix of "dminingmysql_".
 } starg;
 
-#define MAXFIELDCOUNT  100  // 结果集字段的最大数。
+#define MAXFIELDCOUNT  100  // 结果集字段的最大数。 // maximum number of fields in the result set.
 //#define MAXFIELDLEN    500  // 结果集字段值的最大长度。
 int MAXFIELDLEN=-1;   // 结果集字段值的最大长度，存放fieldlen数组中元素的最大值。
 
-char strfieldname[MAXFIELDCOUNT][31];    // 结果集字段名数组，从starg.fieldstr解析得到。
+char strfieldname[MAXFIELDCOUNT][31];    // 结果集字段名数组，从starg.fieldstr解析得到。//holds the field name of the result set, parsed from starg.fieldstr.
+// the each max length of the fieldname is 32(0-31)
 int  ifieldlen[MAXFIELDCOUNT];           // 结果集字段的长度数组，从starg.fieldlen解析得到。
 int  ifieldcount;                        // strfieldname和ifieldlen数组中有效字段的个数。
 int  incfieldpos=-1;                     // 递增字段在结果集数组中的位置。
@@ -43,23 +46,23 @@ void EXIT(int sig);
 
 void _help();
 
-// 把xml解析到参数starg结构中。
+// 把xml解析到参数starg结构中。// parse xml to parameter starg structure.
 bool _xmltoarg(char *strxmlbuffer);
 
-// 判断当前时间是否在程序运行的时间区间内。
+// 判断当前时间是否在程序运行的时间区间内。// determine whether the current time is within the time interval of program operation.
 bool instarttime();
 
-// 数据抽取的主函数。
+// 数据抽取的主函数。// the main function of data extraction.
 bool _dminingmysql();
 
 CPActive PActive;  // 进程心跳。
 
-char strxmlfilename[301]; // xml文件名。
-void crtxmlfilename();    // 生成xml文件名。
+char strxmlfilename[301]; // xml文件名。 // xml file name.
+void crtxmlfilename();    // 生成xml文件名。// function to generate xml file name.
 
 long imaxincvalue;     // 自增字段的最大值。
-bool readincfield();   // 从数据库表中或starg.incfilename文件中获取已抽取数据的最大id。
-bool writeincfield();  // 把已抽取数据的最大id写入数据库表或starg.incfilename文件。
+bool readincfield();   // 从数据库表中或starg.incfilename文件中获取已抽取数据的最大id。// get the maximum id of the extracted data from the database table or starg.incfilename file.
+bool writeincfield();  // 把已抽取数据的最大id写入数据库表或starg.incfilename文件。// write the maximum id of the extracted data to the database table or starg.incfilename file.
 
 int main(int argc,char *argv[])
 {
@@ -73,7 +76,7 @@ int main(int argc,char *argv[])
   // 打开日志文件。
   if (logfile.Open(argv[1],"a+")==false)
   {
-    printf("打开日志文件失败（%s）。\n",argv[1]); return -1;
+    printf("fail to open the logfile(%s)。\n",argv[1]); return -1;
   }
 
   // 解析xml，得到程序运行的参数。
@@ -112,14 +115,15 @@ int main(int argc,char *argv[])
 bool _dminingmysql()
 {
   // 从数据库表中或starg.incfilename文件中获取已抽取数据的最大id。
-  readincfield();
+  readincfield(); // get the maximum id of the extracted data from the database table or starg.incfilename file.
 
   sqlstatement stmt(&conn);
   stmt.prepare(starg.selectsql);
   char strfieldvalue[ifieldcount][MAXFIELDLEN+1];  // 抽取数据的SQL执行后，存放结果集字段值的数组。
   for (int ii=1;ii<=ifieldcount;ii++)
   {
-    stmt.bindout(ii,strfieldvalue[ii-1],ifieldlen[ii-1]);
+    stmt.bindout(ii,strfieldvalue[ii-1],ifieldlen[ii-1]); //bindout is used to bind the result set field value to the array strfieldvalue.
+    // after execute the bindout value will be stored in the array strfieldvalue.
   }
 
   // 如果是增量抽取，绑定输入参数（已抽取数据的最大id）。
@@ -153,8 +157,10 @@ bool _dminingmysql()
     }
 
     for (int ii=1;ii<=ifieldcount;ii++)
+    {
+      printf("<%s>%s</%s>",strfieldname[ii-1],strfieldvalue[ii-1],strfieldname[ii-1]);
       File.Fprintf("<%s>%s</%s>",strfieldname[ii-1],strfieldvalue[ii-1],strfieldname[ii-1]);
-
+    }
     File.Fprintf("<endl/>\n");
 
     // 如果记录数达到starg.maxcount行就切换一个xml文件。
@@ -209,9 +215,9 @@ void _help()
 {
   printf("Using:/project/tools1/bin/dminingmysql logfilename xmlbuffer\n\n");
 
-  printf("Sample:/project/tools1/bin/procctl 3600 /project/tools1/bin/dminingmysql /log/idc/dminingmysql_ZHOBTCODE.log \"<connstr>127.0.0.1,root,mysqlpwd,mysql,3306</connstr><charset>utf8</charset><selectsql>select obtid,cityname,provname,lat,lon,height from T_ZHOBTCODE</selectsql><fieldstr>obtid,cityname,provname,lat,lon,height</fieldstr><fieldlen>10,30,30,10,10,10</fieldlen><bfilename>ZHOBTCODE</bfilename><efilename>HYCZ</efilename><outpath>/idcdata/dmindata</outpath><timeout>30</timeout><pname>dminingmysql_ZHOBTCODE</pname>\"\n\n");
-  printf("       /project/tools1/bin/procctl   30 /project/tools1/bin/dminingmysql /log/idc/dminingmysql_ZHOBTMIND.log \"<connstr>127.0.0.1,root,mysqlpwd,mysql,3306</connstr><charset>utf8</charset><selectsql>select obtid,date_format(ddatetime,'%%%%Y-%%%%m-%%%%d %%%%H:%%%%i:%%%%s'),t,p,u,wd,wf,r,vis,keyid from T_ZHOBTMIND where keyid>:1 and ddatetime>timestampadd(minute,-120,now())</selectsql><fieldstr>obtid,ddatetime,t,p,u,wd,wf,r,vis,keyid</fieldstr><fieldlen>10,19,8,8,8,8,8,8,8,15</fieldlen><bfilename>ZHOBTMIND</bfilename><efilename>HYCZ</efilename><outpath>/idcdata/dmindata</outpath><starttime></starttime><incfield>keyid</incfield><incfilename>/idcdata/dmining/dminingmysql_ZHOBTMIND_HYCZ.list</incfilename><timeout>30</timeout><pname>dminingmysql_ZHOBTMIND_HYCZ</pname><maxcount>1000</maxcount><connstr1>127.0.0.1,root,mysqlpwd,mysql,3306</connstr1>\"\n\n");
-
+  printf("Sample:/project/tools/bin/procctl 3600 /home/cis623-vm/root/project/tools/bin/dminingmysql /home/cis623-vm/root/log/idc/dminingmysql_ZHOBTCODE.log \"<connstr>127.0.0.1,root,cis623,mysql,3306</connstr><charset>utf8</charset><selectsql>select obtid,cityname,provname,lat,lon,height from T_ZHOBTCODE</selectsql><fieldstr>obtid,cityname,provname,lat,lon,height</fieldstr><fieldlen>10,30,30,10,10,10</fieldlen><bfilename>ZHOBTCODE</bfilename><efilename>HYCZ</efilename><outpath>/home/cis623-vm/root/idcdata/dmindata</outpath><timeout>30</timeout><pname>dminingmysql_ZHOBTCODE</pname>\"\n\n");
+  printf("       /project/tools/bin/procctl   30 /home/cis623-vm/root/project/tools/bin/dminingmysql /home/cis623-vm/root/log/idc/dminingmysql_ZHOBTMIND.log \"<connstr>127.0.0.1,root,cis623,mysql,3306</connstr><charset>utf8</charset><selectsql>select obtid,date_format(ddatetime,'%%%%Y-%%%%m-%%%%d %%%%H:%%%%i:%%%%s'),t,p,u,wd,wf,r,vis,keyid from T_ZHOBTMIND where keyid > 1 and ddatetime>timestampadd(minute,-120,now())</selectsql><fieldstr>obtid,ddatetime,t,p,u,wd,wf,r,vis,keyid</fieldstr><fieldlen>10,19,8,8,8,8,8,8,8,15</fieldlen><bfilename>ZHOBTMIND</bfilename><efilename>HYCZ</efilename><outpath>/home/cis623-vm/root/idcdata/dmindata</outpath><starttime></starttime><incfield>keyid</incfield><incfilename>/home/cis623-vm/root/idcdata/dmining/dminingmysql_ZHOBTMIND_HYCZ.list</incfilename><timeout>30</timeout><pname>dminingmysql_ZHOBTMIND_HYCZ</pname><maxcount>1000</maxcount><connstr1>127.0.0.1,root,cis623,mysql,3306</connstr1>\"\n\n");
+  
   printf("本程序是数据中心的公共功能模块，用于从MySQL数据库源表抽取数据，生成xml文件。\n");
   printf("logfilename 本程序运行的日志文件。\n");
   printf("xmlbuffer   本程序运行的参数，用xml表示，具体如下：\n\n");
@@ -234,6 +240,28 @@ void _help()
   printf("connstr1    已抽取数据的递增字段最大值存放的数据库的连接参数。connstr1和incfilename二选一，connstr1优先。");
   printf("timeout     本程序的超时时间，单位：秒。\n");
   printf("pname       进程名，尽可能采用易懂的、与其它进程不同的名称，方便故障排查。\n\n\n");
+  printf("This program is a public function module of the data center, used to extract data from MySQL database source tables and generate XML files.\n");
+printf("logfilename This is the log file of the program's execution.\n");
+printf("xmlbuffer This is the parameter of the program's execution, represented in XML, specifically as follows:\n\n");
+
+printf("connstr Connection parameters for the database, in the format: ip, username, password, dbname, port.\n");
+printf("charset The character set of the database. This parameter should be consistent with the source database, otherwise there will be issues with Chinese characters being garbled.\n");
+printf("selectsql The SQL statement to extract data from the source database. Note: The percentage sign  needs four to display two after being prepared.\n");
+printf("fieldstr Field names of the result set of the SQL statement extracting data, separated by commas, will be used as the field names of the XML file.\n");
+printf("fieldlen Length of the fields in the result set of the SQL statement extracting data, separated by commas. The fields in fieldstr and fieldlen must correspond one-to-one.\n");
+printf("bfilename The prefix of the output XML file.\n");
+printf("efilename The suffix of the output XML file.\n");
+printf("outpath The directory where the output XML file is stored.\n");
+printf("maxcount The maximum number of records in the output XML file, the default is 0, which means no limit. If this parameter is set to 0, be sure to increase the value of timeout to prevent the program from timing out.\n");
+printf("starttime The time interval of the program's execution, for example 02,13 means: If the program starts at 02 and 13 hours, it will run, otherwise it will not run."
+"If starttime is empty, then the starttime parameter will be invalid, and the data extraction will be executed as long as the program starts. To reduce the pressure on the data source,"
+"when extracting data from the database, it is generally done when the other party's database is the most idle.\n");
+printf("incfield The incremental field name, it must be a field name in fieldstr, and it can only be an integer, generally an auto-increment field."
+"If incfield is empty, it means that the incremental extraction plan is not adopted.");
+printf("incfilename The file where the maximum value of the extracted data's incremental field is stored. If this file is lost, all data will be extracted again.\n");
+printf("connstr1 The connection parameter of the database where the maximum value of the extracted data's incremental field is stored. Choose one of connstr1 and incfilename, with connstr1 being the priority.");
+printf("timeout The timeout of the program, in seconds.\n");
+printf("pname The process name, try to use an easy-to-understand name that is different from other processes to facilitate troubleshooting.\n\n\n");
 }
 
 // 把xml解析到参数starg结构中。
@@ -289,7 +317,8 @@ bool _xmltoarg(char *strxmlbuffer)
   // 判断字段数是否超出MAXFIELDCOUNT的限制。
   if (CmdStr.CmdCount()>MAXFIELDCOUNT)
   {
-    logfile.Write("fieldlen的字段数太多，超出了最大限制%d。\n",MAXFIELDCOUNT); return false;
+    //logfile.Write("fieldlen的字段数太多，超出了最大限制%d。\n",MAXFIELDCOUNT); return false;
+    logfile.Write("The number of fields in fieldlen is too many, exceeding the maximum limit %d.\n", MAXFIELDCOUNT); return false;
   }
 
   for (int ii=0;ii<CmdStr.CmdCount();ii++)
@@ -307,7 +336,8 @@ bool _xmltoarg(char *strxmlbuffer)
   // 判断字段数是否超出MAXFIELDCOUNT的限制。
   if (CmdStr.CmdCount()>MAXFIELDCOUNT)
   {
-    logfile.Write("fieldstr的字段数太多，超出了最大限制%d。\n",MAXFIELDCOUNT); return false;
+    //logfile.Write("fieldstr的字段数太多，超出了最大限制%d。\n",MAXFIELDCOUNT); return false;
+    logfile.Write("The number of fields in fieldstr is too many, exceeding the maximum limit %d.\n", MAXFIELDCOUNT); return false;
   }
 
   for (int ii=0;ii<CmdStr.CmdCount();ii++)
@@ -318,10 +348,12 @@ bool _xmltoarg(char *strxmlbuffer)
   // 判断strfieldname和ifieldlen两个数组中的字段是否一致。
   if (ifieldcount!=CmdStr.CmdCount())
   {
-    logfile.Write("fieldstr和fieldlen的元素数量不一致。\n"); return false;
+    //logfile.Write("fieldstr和fieldlen的元素数量不一致。\n"); return false;
+    logfile.Write("The number of elements in fieldstr and fieldlen is not consistent.\n"); return false;
   }
 
   // 3、获取自增字段在结果集中的位置。
+  // find the self-inc field (index) position in the result set.
   if (strlen(starg.incfield)!=0)
   {
     for (int ii=0;ii<ifieldcount;ii++)
@@ -329,12 +361,14 @@ bool _xmltoarg(char *strxmlbuffer)
 
     if (incfieldpos==-1)
     {
-      logfile.Write("递增字段名%s不在列表%s中。\n",starg.incfield,starg.fieldstr); return false;
+      //logfile.Write("递增字段名%s不在列表%s中。\n",starg.incfield,starg.fieldstr); return false;
+       logfile.Write("Increment field name %s is not in the list %s.\n", starg.incfield, starg.fieldstr); return false;
     }
 
     if ( (strlen(starg.incfilename)==0) && (strlen(starg.connstr1)==0) )
     {
-      logfile.Write("incfilename和connstr1参数必须二选一。\n"); return false;
+      //logfile.Write("incfilename和connstr1参数必须二选一。\n"); return false;
+      logfile.Write("One of the incfilename and connstr1 parameters must be chosen.\n"); return false;
     }
   }
 
@@ -356,9 +390,10 @@ bool instarttime()
   return true;
 }
 
-void crtxmlfilename()   // 生成xml文件名。
+void crtxmlfilename()   // 生成xml文件名。// Generate xml file name.
 {
   // xml全路径文件名=start.outpath+starg.bfilename+当前时间+starg.efilename+序号.xml
+  // xml full path file name = start.outpath + starg.bfilename + current time + starg.efilename + serial number.xml
   char strLocalTime[21];
   memset(strLocalTime,0,sizeof(strLocalTime));
   LocalTime(strLocalTime,"yyyymmddhh24miss");
@@ -368,6 +403,7 @@ void crtxmlfilename()   // 生成xml文件名。
 }
 
 // 从数据库表中或starg.incfilename文件中获取已抽取数据的最大id。
+// Get the maximum id of the extracted data from the database table or the starg.incfilename file.
 bool readincfield()   
 {
   imaxincvalue=0;    // 自增字段的最大值。
@@ -375,14 +411,14 @@ bool readincfield()
   // 如果starg.incfield参数为空，表示不是增量抽取。
   if (strlen(starg.incfield)==0) return true;
 
-  if (strlen(starg.connstr1)!=0)
+  if (strlen(starg.connstr1)!=0) //connstr1 meaning we save the data in the database.
   {
     // 从数据库表中加载自增字段的最大值。
     // create table T_MAXINCVALUE(pname varchar(50),maxincvalue numeric(15),primary key(pname));
     sqlstatement stmt(&conn1);
     stmt.prepare("select maxincvalue from T_MAXINCVALUE where pname=:1");
     stmt.bindin(1,starg.pname,50);
-    stmt.bindout(1,&imaxincvalue);
+    stmt.bindout(1,&imaxincvalue);//
     stmt.execute();
     stmt.next();
   }
@@ -391,8 +427,8 @@ bool readincfield()
     // 从文件中加载自增字段的最大值。
     CFile File;
 
-    // 如果打开starg.incfilename文件失败，表示是第一次运行程序，也不必返回失败。
-    // 也可能是文件丢了，那也没办法，只能重新抽取。
+    // 如果打开starg.incfilename文件失败，表示是第一次运行程序，也不必返回失败。// If the starg.incfilename file fails to open, it means that the program is running for the first time, and there is no need to return failure.
+    // 也可能是文件丢了，那也没办法，只能重新抽取。// It may also be that the file is lost, then there is no way, can only re-extract.
     if (File.Open(starg.incfilename,"r")==false) return true;
 
     // 从文件中读取已抽取数据的最大id。
@@ -401,7 +437,8 @@ bool readincfield()
     imaxincvalue=atol(strtemp);
   }
 
-  logfile.Write("上次已抽取数据的位置（%s=%ld）。\n",starg.incfield,imaxincvalue);
+  //logfile.Write("上次已抽取数据的位置（%s=%ld）。\n",starg.incfield,imaxincvalue);
+  logfile.Write("The position of the last extracted data (%s=%ld).\n", starg.incfield, imaxincvalue);
 
   return true;
 }

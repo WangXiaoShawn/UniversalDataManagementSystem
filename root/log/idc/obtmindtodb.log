@@ -4,3 +4,7 @@
 2023-06-04 13:56:15 already processed/home/cis623-vm/root/idcdata/surfdata/SURF_ZH_20230604135614_40419.xml（totalcount=839,insertcount=839），耗时0.21秒。
 2023-06-04 13:57:15 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
 2023-06-04 13:57:15 already processed/home/cis623-vm/root/idcdata/surfdata/SURF_ZH_20230604135714_40578.xml（totalcount=839,insertcount=839），耗时0.12秒。
+2023-06-05 19:14:23 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-05 19:14:24 already processed/home/cis623-vm/root/idcdata/surfdata/SURF_ZH_20230605191423_12266.xml（totalcount=839,insertcount=839），耗时0.78秒。
+2023-06-05 19:15:24 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-05 19:15:24 already processed/home/cis623-vm/root/idcdata/surfdata/SURF_ZH_20230605191523_12391.xml（totalcount=839,insertcount=839），耗时0.14秒。

@@ -49,3 +49,11 @@
 2023-06-04 13:56:14 Login(10.0.2.15:5005)success。
 2023-06-04 13:57:28 process tcpputfile end ...，sig=15
 
+2023-06-05 19:14:23 TcpClient.ConnectToServer(10.0.2.15,5005) failed.
+2023-06-05 19:14:23 process tcpputfile end ...，sig=-1
+
+2023-06-05 19:14:43 send：<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/tmp/ftpputest</clientpath><andchild>true</andchild><matchname>*.XML,*.CSV,*.JSON</matchname><srvpath>/home/cis623-vm/root/tmp/tcpputest</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_surfdata</pname><clienttype>1</clienttype>
+2023-06-05 19:14:43 recv：ok
+2023-06-05 19:14:43 Login(10.0.2.15:5005)success。
+2023-06-05 19:16:22 process tcpputfile end ...，sig=15
+
