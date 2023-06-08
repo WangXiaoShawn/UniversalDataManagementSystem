@@ -1,0 +1,15 @@
+2023-06-08 02:08:57 send：<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/idcdata/dmindata</clientpath><andchild>false</andchild><matchname>*.XML</matchname><srvpath>/home/cis623-vm/root/idcdata/xmltodb/vip1</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_dmindata</pname><clienttype>1</clienttype>
+2023-06-08 02:08:57 recv：ok
+2023-06-08 02:08:57 Login(10.0.2.15:5005)success。
+2023-06-08 02:08:57 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230605191453_HYCZ_1.xml(140942) ...ok.
+2023-06-08 02:08:57 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTCODE_20230605175853_HYCZ_1.xml(113219) ...ok.
+2023-06-08 02:08:57 strrecvbuffer=<filename>/home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230605191453_HYCZ_1.xml</filename><result>ok</result>
+2023-06-08 02:08:57 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTCODE_20230605191423_HYCZ_1.xml(113219) ...ok.
+2023-06-08 02:08:57 strrecvbuffer=<filename>/home/cis623-vm/root/idcdata/dmindata/ZHOBTCODE_20230605175853_HYCZ_1.xml</filename><result>ok</result>
+2023-06-08 02:08:57 strrecvbuffer=<filename>/home/cis623-vm/root/idcdata/dmindata/ZHOBTCODE_20230605191423_HYCZ_1.xml</filename><result>ok</result>
+2023-06-08 02:08:57 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230605191553_HYCZ_1.xml(140906) ...ok.
+2023-06-08 02:08:57 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTCODE_20230608020857_HYCZ_1.xml(113219) ...ok.
+2023-06-08 02:09:27 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230608020927_HYCZ_1.xml(140901) ...ok.
+2023-06-08 02:10:27 send /home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230608021027_HYCZ_1.xml(140886) ...ok.
+2023-06-08 02:11:05 process tcpputfile end ...，sig=15
+

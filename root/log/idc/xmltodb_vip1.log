@@ -1,0 +1,19 @@
+2023-06-08 01:54:41 loadxmltotable(/home/cis623-vm/root/project/idc/ini/xmltodb.xml) ok.
+2023-06-08 01:54:41 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 01:54:41 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTCODE_20230605175853_HYCZ_1.xml...ok(T_ZHOBTCODE1,total=839,insert=839,update=0).
+2023-06-08 01:54:42 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTCODE_20230605191423_HYCZ_1.xml...ok(T_ZHOBTCODE1,total=839,insert=839,update=0).
+2023-06-08 01:54:42 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230605191453_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=839,update=0).
+2023-06-08 01:54:42 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230605191553_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=839,update=0).
+2023-06-08 01:54:51 program exit,sig=2
+
+2023-06-08 02:08:57 loadxmltotable(/home/cis623-vm/root/project/idc/ini/xmltodb.xml) ok.
+2023-06-08 02:08:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:08:57 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTCODE_20230605175853_HYCZ_1.xml...ok(T_ZHOBTCODE1,total=839,insert=839,update=0).
+2023-06-08 02:08:57 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTCODE_20230605191423_HYCZ_1.xml...ok(T_ZHOBTCODE1,total=839,insert=839,update=0).
+2023-06-08 02:08:58 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230605191453_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=0,update=0).
+2023-06-08 02:09:03 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTCODE_20230608020857_HYCZ_1.xml...ok(T_ZHOBTCODE1,total=839,insert=839,update=0).
+2023-06-08 02:09:03 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230605191553_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=0,update=0).
+2023-06-08 02:09:28 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230608020927_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=839,update=0).
+2023-06-08 02:10:28 Processing file /home/cis623-vm/root/idcdata/xmltodb/vip1/ZHOBTMIND_20230608021027_HYCZ_1.xml...ok(T_ZHOBTMIND1,total=839,insert=839,update=0).
+2023-06-08 02:11:05 program exit,sig=15
+

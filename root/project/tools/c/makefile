@@ -9,7 +9,7 @@ MYSQLINCL = -I/usr/local/mysql/include	-I/home/cis623-vm/root/project/public/db/
 #mysql库文件保存路径
 MYSQLLIB = -L/usr/local/mysql/lib
 # mysql链接库 
-MYSQLLIBS = -lmysqlclient
+MYSQLLIBS = -L/usr/local/mysql/lib -lmysqlclient
 # 开发框架mysql的cpp文件名，这里直接包含进来，没有采用链接库，是为了方便调试。                                                                                                                             
 MYSQLCPP = /home/cis623-vm/root/project/public/db/mysql/_mysql.cpp
 
@@ -29,9 +29,8 @@ MYSQLCPP = /home/cis623-vm/root/project/public/db/mysql/_mysql.cpp
 # 编译参数。
 CFLAGS = -g
 
-all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql
-# tcpputfiles fileserver\
-     tcpgetfiles execsql dminingmysql xmltodb syncupdate syncincrement syncincrementex\
+all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb
+#  xmltodb syncupdate syncincrement syncincrementex\
      deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle\
      dminingoracle syncupdate_oracle syncincrement_oracle syncincrementex_oracle\
      webserver inetd rinetd rinetdin 
@@ -83,9 +82,9 @@ dminingmysql:dminingmysql.cpp
 	g++ $(CFLAGS) -o dminingmysql dminingmysql.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
 	cp dminingmysql ../bin/.
 
-#xmltodb:xmltodb.cpp _tools.h _tools.cpp
-#	g++ $(CFLAGS) -o xmltodb xmltodb.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp xmltodb ../bin/.
+xmltodb:xmltodb.cpp _tools.h _tools.cpp
+	g++ $(CFLAGS) -o xmltodb xmltodb.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp xmltodb ../bin/.
 
 #xmltodb_oracle:xmltodb_oracle.cpp _tools_oracle.h _tools_oracle.cpp
 #	g++ $(CFLAGS) -o xmltodb_oracle xmltodb_oracle.cpp _tools_oracle.cpp $(PUBINCL) $(PUBCPP) $(ORAINCL) $(ORALIB) $(ORALIBS) $(ORACPP) -lm -lc
@@ -152,8 +151,8 @@ dminingmysql:dminingmysql.cpp
 #	cp rinetdin ../bin/.
 
 clean:
-	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql
-#	rm -f  execsql dminingmysql xmltodb syncupdate syncincrement syncincrementex
+	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb
+#	rm -f  syncupdate syncincrement syncincrementex
 #	rm -f deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle
 #	rm -f dminingoracle syncupdate_oracle syncincrement_oracle syncincrementex_oracle
 #	rm -f webserver inetd rinetd rinetdin 

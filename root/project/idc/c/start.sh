@@ -53,18 +53,17 @@
 # 每30秒从T_ZHOBTMIND表中增量抽取出来。
 /home/cis623-vm/root/project/tools/bin/procctl 30 /home/cis623-vm/root/project/tools/bin/dminingmysql /home/cis623-vm/root/log/idc/dminingmysql_ZHOBTMIND.log "<connstr>127.0.0.1,root,cis623,mysql,3306</connstr><charset>utf8</charset><selectsql>select obtid,date_format(ddatetime,'%%Y-%%m-%%d %%H:%%i:%%s'),t,p,u,wd,wf,r,vis,keyid from T_ZHOBTMIND where keyid>:1 and ddatetime>timestampadd(minute,-65,now())</selectsql><fieldstr>obtid,ddatetime,t,p,u,wd,wf,r,vis,keyid</fieldstr><fieldlen>10,19,8,8,8,8,8,8,8,15</fieldlen><bfilename>ZHOBTMIND</bfilename><efilename>HYCZ</efilename><outpath>/home/cis623-vm/root/idcdata/dmindata</outpath><incfield>keyid</incfield><timeout>30</timeout><pname>dminingmysql_ZHOBTMIND_HYCZ</pname><maxcount>1000</maxcount><connstr1>127.0.0.1,root,cis623,mysql,3306</connstr1>"
 
-# 清理/idcdata/dmindata目录中文件，防止把空间撑满。
-#/project/tools1/bin/procctl 300 /project/tools1/bin/deletefiles /idcdata/dmindata "*" 0.02
+ #清理/idcdata/dmindata目录中文件，防止把空间撑满。
+/home/cis623-vm/root/project/tools/bin/procctl 300 /home/cis623-vm/root/project/tools/bin/deletefiles /idcdata/dmindata "*" 0.02
 
 # 把/idcdata/dmindata目录中的xml发送到/idcdata/xmltodb/vip1，交由xmltodb程序去入库。
-#/project/tools1/bin/procctl 20 /project/tools1/bin/tcpputfiles /log/idc/tcpputfiles_dmindata.log "<ip>127.0.0.1</ip><port>5005</port><ptype>1</ptype><clientpath>/idcdata/dmindata</clientpath><andchild>false</andchild><matchname>*.XML</matchname><srvpath>/idcdata/xmltodb/vip1</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_dmindata</pname>"
+/home/cis623-vm/root/project/tools/bin/procctl 20 /home/cis623-vm/root/project/tools/bin/tcpputfiles /home/cis623-vm/root/log/idc/tcpputfiles_dmindata.log "<ip>10.0.2.15</ip><port>5005</port><ptype>1</ptype><clientpath>/home/cis623-vm/root/idcdata/dmindata</clientpath><andchild>false</andchild><matchname>*.XML</matchname><srvpath>/home/cis623-vm/root/idcdata/xmltodb/vip1</srvpath><timetvl>10</timetvl><timeout>50</timeout><pname>tcpputfiles_dmindata</pname>"
 
 # 把/idcdata/xmltodb/vip1目录中的xml文件入库。
-#/project/tools1/bin/procctl 10 /project/tools1/bin/xmltodb /log/idc/xmltodb_vip1.log "<connstr>127.0.0.1,root,mysqlpwd,mysql,3306</connstr><charset>utf8</charset><inifilename>/project/idc1/ini/xmltodb.xml</inifilename><xmlpath>/idcdata/xmltodb/vip1</xmlpath><xmlpathbak>/idcdata/xmltodb/vip1bak</xmlpathbak><xmlpatherr>/idcdata/xmltodb/vip1err</xmlpatherr><timetvl>5</timetvl><timeout>50</timeout><pname>xmltodb_vip1</pname>"
-
+/home/cis623-vm/root/project/tools/bin/procctl 10 /home/cis623-vm/root/project/tools/bin/xmltodb /home/cis623-vm/root/log/idc/xmltodb_vip1.log "<connstr>127.0.0.1,root,cis623,mysql,3306</connstr><charset>utf8</charset><inifilename>/home/cis623-vm/root/project/idc/ini/xmltodb.xml</inifilename><xmlpath>/home/cis623-vm/root/idcdata/xmltodb/vip1</xmlpath><xmlpathbak>/home/cis623-vm/idcdata/xmltodb/vip1bak</xmlpathbak><xmlpatherr>/home/cis623-vm/idcdata/xmltodb/vip1err</xmlpatherr><timetvl>5</timetvl><timeout>50</timeout><pname>xmltodb_vip1</pname>"
 # 清理/idcdata/xmltodb/vip1bak和/idcdata/xmltodb/vip1err目录中文件，防止把空间撑满。
-#/project/tools1/bin/procctl 300 /project/tools1/bin/deletefiles /idcdata/xmltodb/vip1bak "*" 0.02
-#/project/tools1/bin/procctl 300 /project/tools1/bin/deletefiles /idcdata/xmltodb/vip1err "*" 0.02
+/home/cis623-vm/root/project/tools/bin/procctl 300 /home/cis623-vm/root/project/tools/bin/deletefiles /home/cis623-vm/root/idcdata/xmltodb/vip1bak "*" 0.02
+/home/cis623-vm/root/project/tools/bin/procctl 300 /home/cis623-vm/root/project/tools/bin/deletefiles /home/cis623-vm/root/idcdata/xmltodb/vip1err "*" 0.02
 
 # 采用全表刷新同步的方法，把表T_ZHOBTCODE1中的数据同步到表T_ZHOBTCODE2
 #/project/tools1/bin/procctl 10 /project/tools1/bin/syncupdate /log/idc/syncupdate_ZHOBTCODE2.log "<localconnstr>192.168.174.132,root,mysqlpwd,mysql,3306</localconnstr><charset>utf8</charset><fedtname>LK_ZHOBTCODE1</fedtname><localtname>T_ZHOBTCODE2</localtname><remotecols>obtid,cityname,provname,lat,lon,height/10,upttime,keyid</remotecols><localcols>stid,cityname,provname,lat,lon,altitude,upttime,keyid</localcols><synctype>1</synctype><timeout>50</timeout><pname>syncupdate_ZHOBTCODE2</pname>"

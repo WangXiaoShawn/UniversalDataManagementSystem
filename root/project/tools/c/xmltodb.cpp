@@ -1,61 +1,28 @@
 /*
- *  程序名：xmltodb.cpp，本程序是数据中心的公共功能模块，用于把xml文件入库到MySQL的表中。
- *  作者：吴从周。
+ * Program Name: xmltodb : This program is used to import xml data into the database.
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/4
 */
 #include "_tools.h"
 
-/*
-// 表的列(字段)信息的结构体。
-struct st_columns
-{
-  char  colname[31];  // 列名。
-  char  datatype[31]; // 列的数据类型，分为number、date和char三大类。
-  int   collen;       // 列的长度，number固定20，date固定19，char的长度由表结构决定。
-  int   pkseq;        // 如果列是主键的字段，存放主键字段的顺序，从1开始，不是主键取值0。
-};
-
-// 获取表全部的列和主键列信息的类。
-class CTABCOLS
-{
-public:
-  CTABCOLS();
-
-  int m_allcount;   // 全部字段的个数。
-  int m_pkcount;    // 主键字段的个数。
-
-  vector<struct st_columns> m_vallcols;  // 存放全部字段信息的容器。
-  vector<struct st_columns> m_vpkcols;   // 存放主键字段信息的容器。
-
-  char m_allcols[3001];  // 全部的字段名列表，以字符串存放，中间用半角的逗号分隔。
-  char m_pkcols[301];    // 主键字段名列表，以字符串存放，中间用半角的逗号分隔。
-
-  void initdata();  // 成员变量初始化。
-
-  // 获取指定表的全部字段信息。
-  bool allcols(connection *conn,char *tablename);
-
-  // 获取指定表的主键字段信息。
-  bool pkcols(connection *conn,char *tablename);
-};
-*/
-
 struct st_arg
 {
-  char connstr[101];     // 数据库的连接参数。
-  char charset[51];      // 数据库的字符集。
-  char inifilename[301]; // 数据入库的参数配置文件。
-  char xmlpath[301];     // 待入库xml文件存放的目录。
-  char xmlpathbak[301];  // xml文件入库后的备份目录。
-  char xmlpatherr[301];  // 入库失败的xml文件存放的目录。
-  int  timetvl;          // 本程序运行的时间间隔，本程序常驻内存。
-  int  timeout;          // 本程序运行时的超时时间。
-  char pname[51];        // 本程序运行时的程序名。
+  char connstr[101];     // 数据库的连接参数。//database connection parameters
+  char charset[51];      // 数据库的字符集。//database character set
+  char inifilename[301]; // 数据入库的参数配置文件。//data storage parameter configuration file
+  char xmlpath[301];     // 待入库xml文件存放的目录。//the directory where the xml file to be stored is stored
+  char xmlpathbak[301];  // xml文件入库后的备份目录。//the backup directory of the xml file after the storage
+  char xmlpatherr[301];  // 入库失败的xml文件存放的目录。//the directory where the xml file that failed to be stored is stored
+  int  timetvl;          // 本程序运行的时间间隔，本程序常驻内存。//the time interval of the program running, the program is always resident in memory
+  int  timeout;          // 本程序运行时的超时时间。//the timeout time when the program is running
+  char pname[51];        // 本程序运行时的程序名。//the program name when the program is running
 } starg;
 
-// 显示程序的帮助
+// 显示程序的帮助//display the help of the program
 void _help(char *argv[]);
 
-// 把xml解析到参数starg结构中
+// 把xml解析到参数starg结构中 //read the input parameters xml and parse it into the starg structure
 bool _xmltoarg(char *strxmlbuffer);
 
 CLogFile logfile;
@@ -64,15 +31,15 @@ connection conn;
  
 void EXIT(int sig);
 
-// 业务处理主函数。
+// 业务处理主函数。//the main function for the data into mysql
 bool _xmltodb();
 
 struct st_xmltotable
 {
-  char filename[101];    // xml文件的匹配规则，用逗号分隔。
-  char tname[31];        // 待入库的表名。
-  int  uptbz;            // 更新标志：1-更新；2-不更新。
-  char execsql[301];     // 处理xml文件之前，执行的SQL语句。
+  char filename[101];    // xml文件的匹配规则，用逗号分隔。//the matching rule of the xml file, separated by commas
+  char tname[31];        // 待入库的表名。//the table,which is to be stored
+  int  uptbz;            // 更新标志：1-更新；2-不更新。//update flag: 1-update; 2-do not update
+  char execsql[301];     // 处理xml文件之前，执行的SQL语句。//the sql statement executed before processing the xml file
 } stxmltotable;
 vector<struct st_xmltotable> vxmltotable;   // 数据入库的参数的容器。
 // 把数据入库的参数配置文件starg.inifilename加载到vxmltotable容器中。
@@ -84,27 +51,27 @@ bool findxmltotable(char *xmlfilename);
 int totalcount,inscount,uptcount;    // xml文件的总记录数、插入记录数和更新记录数。
 int _xmltodb(char *fullfilename,char *filename);
 
-// 把xml文件移动到备份目录或错误目录。
+// 把xml文件移动到备份目录或错误目录。//move the xml file to the backup directory or error directory
 bool xmltobakerr(char *fullfilename,char *srcpath,char *dstpath);
 
-CTABCOLS TABCOLS;  // 获取表全部的字段和主键字段。
+CTABCOLS TABCOLS;  // 获取表全部的字段和主键字段。//get all the fields and primary key fields of the table
 
-char strinsertsql[10241];    // 插入表的SQL语句。
-char strupdatesql[10241];    // 更新表的SQL语句。
+char strinsertsql[10241];    // 插入表的SQL语句。//the sql statement of inserting the table
+char strupdatesql[10241];    // 更新表的SQL语句。//the sql statement of updating the table
 
-// 拼接生成插入和更新表数据的SQL。
+// 拼接生成插入和更新表数据的SQL。//splicing the sql statement of inserting and updating the table
 void crtsql();
 
 // prepare插入和更新的sql语句，绑定输入变量。
-#define MAXCOLCOUNT  500          // 每个表字段的最大数，也可以用MAXPARAMS宏（在_mysql.h中定义）。
-char *strcolvalue[MAXCOLCOUNT];   // 存放从xml每一行中解析出来的值。
+#define MAXCOLCOUNT  500          // 每个表字段的最大数//the maximum number of fields per table
+char *strcolvalue[MAXCOLCOUNT];   // 存放从xml每一行中解析出来的值。//store the value parsed from each line of xml
 sqlstatement stmtins,stmtupt;     // 插入和更新表的sqlstatement对象。
 void preparesql();
 
-// 在处理xml文件之前，如果stxmltotable.execsql不为空，就执行它。
+// 在处理xml文件之前，如果stxmltotable.execsql不为空，就执行它。//if stxmltotable.execsql is not empty before processing the xml file, execute it
 bool execsql();
 
-// 解析xml，存放在已绑定的输入变量strcolvalue数组中。
+// 解析xml，存放在已绑定的输入变量strcolvalue数组中。//parse xml file will be upload and store it in the bound input variable strcolvalue array
 void splitbuffer(char *strBuffer);
 
 CPActive PActive;    // 进程的心跳。
@@ -120,7 +87,7 @@ int main(int argc,char *argv[])
 
   if (logfile.Open(argv[1],"a+")==false)
   {
-    printf("打开日志文件失败（%s）。\n",argv[1]); return -1;
+    printf("fail to open logfile(%s)。\n",argv[1]); return -1;
   }
 
   // 把xml解析到参数starg结构中
@@ -137,7 +104,7 @@ void _help(char *argv[])
 {
   printf("Using:/project/tools1/bin/xmltodb logfilename xmlbuffer\n\n");
 
-  printf("Sample:/project/tools1/bin/procctl 10 /project/tools1/bin/xmltodb /log/idc/xmltodb_vip1.log \"<connstr>127.0.0.1,root,mysqlpwd,mysql,3306</connstr><charset>utf8</charset><inifilename>/project/idc1/ini/xmltodb.xml</inifilename><xmlpath>/idcdata/xmltodb/vip1</xmlpath><xmlpathbak>/idcdata/xmltodb/vip1bak</xmlpathbak><xmlpatherr>/idcdata/xmltodb/vip1err</xmlpatherr><timetvl>5</timetvl><timeout>50</timeout><pname>xmltodb_vip1</pname>\"\n\n");
+  printf("Sample:/project/tools1/bin/procctl 10 /home/cis623-vm/root/project/tools/bin/xmltodb /home/cis623-vm/root/log/idc/xmltodb_vip1.log \"<connstr>127.0.0.1,root,cis623,mysql,3306</connstr><charset>utf8</charset><inifilename>/home/cis623-vm/root/project/idc/ini/xmltodb.xml</inifilename><xmlpath>/home/cis623-vm/root/idcdata/xmltodb/vip1</xmlpath><xmlpathbak>/home/cis623-vm/idcdata/xmltodb/vip1bak</xmlpathbak><xmlpatherr>/home/cis623-vm/idcdata/xmltodb/vip1err</xmlpatherr><timetvl>5</timetvl><timeout>50</timeout><pname>xmltodb_vip1</pname>\"\n\n");
 
   printf("本程序是数据中心的公共功能模块，用于把xml文件入库到MySQL的表中。\n");
   printf("logfilename   本程序运行的日志文件。\n");
@@ -152,6 +119,18 @@ void _help(char *argv[])
   printf("timetvl     本程序的时间间隔，单位：秒，视业务需求而定，2-30之间。\n");
   printf("timeout     本程序的超时时间，单位：秒，视xml文件大小而定，建议设置30以上。\n");
   printf("pname       进程名，尽可能采用易懂的、与其它进程不同的名称，方便故障排查。\n\n");
+  printf("This program is a common function module of the data center, used to import xml files into the MySQL table.\n");
+  printf("logfilename The log file of this program's operation.\n");
+  printf("xmlbuffer The parameters of this program's operation, represented in xml, are as follows:\n\n");
+  printf("connstr Connection parameters for the database, format: ip,username,password,dbname,port.\n");
+  printf("charset The character set of the database. This parameter needs to be consistent with the source database, otherwise Chinese garbled characters will appear.\n");
+  printf("inifilename The parameter configuration file for data import to the database.\n");
+  printf("xmlpath The directory where the xml files to be imported are stored.\n");
+  printf("xmlpathbak The backup directory for xml files after they are imported into the database.\n");
+  printf("xmlpatherr The directory where xml files that fail to be imported into the database are stored.\n");
+  printf("timetvl The time interval of this program, unit: seconds, depending on business needs, between 2-30.\n");
+  printf("timeout The timeout of this program, unit: seconds, depends on the size of the xml file, it is recommended to set it to more than 30.\n");
+  printf("pname Process name, try to use understandable, and different from other processes, easy to troubleshoot.\n\n");
 }
 
 // 把xml解析到参数starg结构中
@@ -192,7 +171,7 @@ bool _xmltoarg(char *strxmlbuffer)
 
 void EXIT(int sig)
 {
-  logfile.Write("程序退出，sig=%d\n\n",sig);
+  logfile.Write("program exit,sig=%d\n\n",sig);
 
   conn.disconnect();
 
@@ -202,7 +181,9 @@ void EXIT(int sig)
 // 业务处理主函数。
 bool _xmltodb()
 {
-  int counter=50;  // 加载入库参数的计数器，初始化为50是为了在第一次进入循环的时候就加载参数。
+  int counter=50;  
+  // 加载入库参数的计数器，初始化为50是为了在第一次进入循环的时候就加载参数。
+  // Load the counter of the parameters of the warehouse, initialized to 50 in order to load the parameters when entering the loop for the first time.
 
   CDir Dir;
 
@@ -210,12 +191,14 @@ bool _xmltodb()
   {
     if (counter++>30)
     {
-      counter=0;   // 重新计数。
+      counter=0;   // 重新计数。// Recount.
       // 把数据入库的参数配置文件starg.inifilename加载到vxmltotable容器中。
+      // Load the data into the warehouse parameter configuration file starg.inifilename into the vxmltotable container.
       if (loadxmltotable()==false) return false;
     }
 
     // 打开starg.xmlpath目录，为了保证先生成的数据入库，打开目录的时候，应该按文件名排序。
+    // Open the starg.xmlpath directory, in order to ensure that the first generated data into the warehouse, open the directory, should be sorted by file name.
     if (Dir.OpenDir(starg.xmlpath,"*.XML",10000,false,true)==false)
     {
       logfile.Write("Dir.OpenDir(%s) failed.\n",starg.xmlpath); return false;
@@ -223,7 +206,7 @@ bool _xmltodb()
 
     while (true)
     {
-      // 读取目录，得到一个xml文件。
+      // 读取目录，得到一个xml文件。// Read the directory to get an xml file, which is will upload to the database.
       if (Dir.ReadDir()==false) break;
 
       if (conn.m_state==0)
@@ -235,27 +218,31 @@ bool _xmltodb()
         logfile.Write("connect database(%s) ok.\n",starg.connstr);
       }
 
-      logfile.Write("处理文件%s...",Dir.m_FullFileName);
+      logfile.Write("Processing file %s...",Dir.m_FullFileName);
 
       // 调用处理xml文件的子函数。
       int iret=_xmltodb(Dir.m_FullFileName,Dir.m_FileName);
 
       PActive.UptATime();
 
-      // 处理xml文件成功，写日志，备份文件。
+      // 处理xml文件成功，写日志，备份文件。// Process the xml file successfully, write the log, backup the file.
       if (iret==0)
       {
         logfile.WriteEx("ok(%s,total=%d,insert=%d,update=%d).\n",stxmltotable.tname,totalcount,inscount,uptcount);
         // 把xml文件移动到starg.xmlpathbak参数指定的目录中，一般不会发生错误，如果真发生了，程序将退出。
+        // Move the xml file to the directory specified by the starg.xmlpathbak parameter, which generally does not cause an error, and if it does, the program will exit.
         if (xmltobakerr(Dir.m_FullFileName,starg.xmlpath,starg.xmlpathbak)==false) return false;
       }
 
       // 1-没有配置入库参数；2-待入库的表不存在；5-表的字段数太多。
+      // 1-There is no configuration  parameters; 
+      //2-the table  does not exist; 
+      //5-the number of fields in the table is too many.
       if ( (iret==1) || (iret==2) || (iret==5) )
       {
-        if (iret==1) logfile.WriteEx("failed，没有配置入库参数。\n");
-        if (iret==2) logfile.WriteEx("failed，待入库的表（%s）不存在。\n",stxmltotable.tname);
-        if (iret==5) logfile.WriteEx("failed，待入库的表（%s）字段数太多。\n",stxmltotable.tname);
+        if (iret==1) logfile.WriteEx("failed，no configuration  parameters。\n");
+        if (iret==2) logfile.WriteEx("failed，the table（%s）does not exist。\n",stxmltotable.tname);
+        if (iret==5) logfile.WriteEx("failed，too many fileds to insert the table（%s）。\n",stxmltotable.tname);
 
         // 把xml文件移动到starg.xmlpatherr参数指定的目录中，一般不会发生错误，如果真发生了，程序将退出。
         if (xmltobakerr(Dir.m_FullFileName,starg.xmlpath,starg.xmlpatherr)==false) return false;
@@ -264,23 +251,24 @@ bool _xmltodb()
       // 打开xml文件错误，这种错误一般不会发生，如果真发生了，程序将退出。
       if (iret==3)
       {
-        logfile.WriteEx("failed，打开xml文件失败。\n"); return false;
+        logfile.WriteEx("failed，fail to xml file。\n"); return false;
       }
  
       // 数据库错误，函数返回，程序将退出。
       if (iret==4)
       {
-        logfile.WriteEx("failed，数据库错误。\n"); return false;
+        logfile.WriteEx("failed，data base error。\n"); return false;
       }
 
       // 在处理xml文件之前，如果执行stxmltotable.execsql失败，函数返回，程序将退出。
       if (iret==6)
       {
-        logfile.WriteEx("failed，执行execsql失败。\n"); return false;
+        logfile.WriteEx("failed, to execute execsql。\n"); return false;
       }
     }
 
     // 如果刚才这次扫描到了有文件，表示不空闲，可能不断的有文件生成，就不sleep了。
+    // If the last scan to the file, indicating that the idle, may be a continuous file generation, do not sleep.
     if (Dir.m_vFileName.size()==0) sleep(starg.timetvl);
 
     PActive.UptATime();
@@ -290,6 +278,7 @@ bool _xmltodb()
 }
 
 // 处理xml文件的子函数，返回值：0-成功，其它的都是失败，失败的情况有很多种，暂时不确定。
+// Process the xml file of the sub function, return value: 0 - success, the other are failure, failure of the situation there are many kinds, temporarily uncertain.
 int _xmltodb(char *fullfilename,char *filename)
 {
   totalcount=inscount=uptcount=0;
@@ -381,14 +370,14 @@ int _xmltodb(char *fullfilename,char *filename)
 }
 
 // 把数据入库的参数配置文件starg.inifilename加载到vxmltotable容器中。
-bool loadxmltotable()
+bool loadxmltotable()// parase ini file and load to vxmltotable
 {
   vxmltotable.clear();
 
   CFile File;
   if (File.Open(starg.inifilename,"r")==false)
   {
-    logfile.Write("File.Open(%s) 失败。\n",starg.inifilename); return false;
+    logfile.Write("File.Open(%s) fail。\n",starg.inifilename); return false;
   }
 
   char strBuffer[501];
@@ -427,7 +416,7 @@ bool findxmltotable(char *xmlfilename)
   return false;
 }
 
-// 把xml文件移动到备份目录或错误目录。
+// 把xml文件移动到备份目录或错误目录。// after upload xml file,move it to bak or err dir.
 bool xmltobakerr(char *fullfilename,char *srcpath,char *dstpath)
 {
   char dstfilename[301];   // 目标文件名。
@@ -443,126 +432,7 @@ bool xmltobakerr(char *fullfilename,char *srcpath,char *dstpath)
   return true;
 }
 
-/*
-// 获取表全部的列和主键列信息的类。
-CTABCOLS::CTABCOLS()
-{
-  initdata();  // 调用成员变量初始化函数。
-}
 
-void CTABCOLS::initdata()  // 成员变量初始化。
-{
-  m_allcount=m_pkcount=0;
-  m_vallcols.clear();
-  m_vpkcols.clear();
-  memset(m_allcols,0,sizeof(m_allcols));
-  memset(m_pkcols,0,sizeof(m_pkcols));
-}
-
-// 获取指定表的全部字段信息。
-bool CTABCOLS::allcols(connection *conn,char *tablename)
-{
-  m_allcount=0;
-  m_vallcols.clear();
-  memset(m_allcols,0,sizeof(m_allcols));
-
-  struct st_columns stcolumns;
-
-  sqlstatement stmt;
-  stmt.connect(conn);
-  stmt.prepare("select lower(column_name),lower(data_type),character_maximum_length from information_schema.COLUMNS where table_name=:1");
-  stmt.bindin(1,tablename,30);
-  stmt.bindout(1, stcolumns.colname,30);
-  stmt.bindout(2, stcolumns.datatype,30);
-  stmt.bindout(3,&stcolumns.collen);
-
-  if (stmt.execute()!=0) return false;
-
-  while (true)
-  {
-    memset(&stcolumns,0,sizeof(struct st_columns));
-  
-    if (stmt.next()!=0) break;
-
-    // 列的数据类型，分为number、date和char三大类。
-    if (strcmp(stcolumns.datatype,"char")==0)    strcpy(stcolumns.datatype,"char");
-    if (strcmp(stcolumns.datatype,"varchar")==0) strcpy(stcolumns.datatype,"char");
-
-    if (strcmp(stcolumns.datatype,"datetime")==0)  strcpy(stcolumns.datatype,"date");
-    if (strcmp(stcolumns.datatype,"timestamp")==0) strcpy(stcolumns.datatype,"date");
-    
-    if (strcmp(stcolumns.datatype,"tinyint")==0)   strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"smallint")==0)  strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"mediumint")==0) strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"int")==0)       strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"integer")==0)   strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"bigint")==0)    strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"numeric")==0)   strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"decimal")==0)   strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"float")==0)     strcpy(stcolumns.datatype,"number");
-    if (strcmp(stcolumns.datatype,"double")==0)    strcpy(stcolumns.datatype,"number");
-
-    // 如果业务有需要，可以修改上面的代码，增加对更多数据类型的支持。
-    // 如果字段的数据类型不在上面列出来的中，忽略它。
-    if ( (strcmp(stcolumns.datatype,"char")!=0) &&
-         (strcmp(stcolumns.datatype,"date")!=0) &&
-         (strcmp(stcolumns.datatype,"number")!=0) ) continue;
-
-    // 如果字段类型是date，把长度设置为19。yyyy-mm-dd hh:mi:ss
-    if (strcmp(stcolumns.datatype,"date")==0) stcolumns.collen=19;
-
-    // 如果字段类型是number，把长度设置为20。
-    if (strcmp(stcolumns.datatype,"number")==0) stcolumns.collen=20;
-
-    strcat(m_allcols,stcolumns.colname); strcat(m_allcols,",");
-
-    m_vallcols.push_back(stcolumns);
-
-    m_allcount++;
-  }
-
-  // 删除m_allcols最后一个多余的逗号。
-  if (m_allcount>0) m_allcols[strlen(m_allcols)-1]=0;
-
-  return true;
-}
-
-// 获取指定表的主键字段信息。
-bool CTABCOLS::pkcols(connection *conn,char *tablename)
-{
-  m_pkcount=0;
-  memset(m_pkcols,0,sizeof(m_pkcols));
-  m_vpkcols.clear();
-
-  struct st_columns stcolumns;
-
-  sqlstatement stmt;
-  stmt.connect(conn);
-  stmt.prepare("select lower(column_name),seq_in_index from information_schema.STATISTICS where table_name=:1 and index_name='primary' order by seq_in_index");
-  stmt.bindin(1,tablename,30);
-  stmt.bindout(1, stcolumns.colname,30);
-  stmt.bindout(2,&stcolumns.pkseq);
-
-  if (stmt.execute() != 0) return false;
-
-  while (true)
-  {
-    memset(&stcolumns,0,sizeof(struct st_columns));
-
-    if (stmt.next() != 0) break;
-
-    strcat(m_pkcols,stcolumns.colname); strcat(m_pkcols,",");
-
-    m_vpkcols.push_back(stcolumns);
-
-    m_pkcount++;
-  }
-
-  if (m_pkcount>0) m_pkcols[strlen(m_pkcols)-1]=0;    // 删除m_pkcols最后一个多余的逗号。
-
-  return true;
-}
-*/
 
 // 拼接生成插入和更新表数据的SQL。
 void crtsql()

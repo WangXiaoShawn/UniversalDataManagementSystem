@@ -45,3 +45,20 @@
 2023-06-05 19:15:53 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
 2023-06-05 19:15:53 The position of the last extracted data (keyid=6712).
 2023-06-05 19:15:53 生成文件/home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230605191553_HYCZ_1.xml(839)。
+2023-06-08 02:08:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:08:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:08:57 The position of the last extracted data (keyid=7551).
+2023-06-08 02:09:27 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:09:27 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:09:27 The position of the last extracted data (keyid=7551).
+2023-06-08 02:09:27 生成文件/home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230608020927_HYCZ_1.xml(839)。
+2023-06-08 02:09:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:09:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:09:57 The position of the last extracted data (keyid=8390).
+2023-06-08 02:10:27 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:10:27 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:10:27 The position of the last extracted data (keyid=8390).
+2023-06-08 02:10:27 生成文件/home/cis623-vm/root/idcdata/dmindata/ZHOBTMIND_20230608021027_HYCZ_1.xml(839)。
+2023-06-08 02:10:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:10:57 connect database(127.0.0.1,root,cis623,mysql,3306) ok.
+2023-06-08 02:10:57 The position of the last extracted data (keyid=9229).
