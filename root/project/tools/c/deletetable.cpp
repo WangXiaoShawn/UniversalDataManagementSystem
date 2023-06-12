@@ -1,19 +1,22 @@
 /*
- *  程序名：deletetable.cpp，本程序是数据中心的公共功能模块，用于定时清理表中的数据。
- *  作者：吴从周。
+ * Program Name: deletetable clean table data with given time interval
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/4
 */
+
 #include "_public.h"
 #include "_mysql.h"
 
 struct st_arg
 {
-  char connstr[101];     // 数据库的连接参数。
-  char tname[31];        // 待清理的表名。
-  char keycol[31];       // 待清理的表的唯一键字段名。
-  char where[1001];      // 待清理的数据需要满足的条件。
-  char starttime[31];    // 程序运行的时间区间。
-  int  timeout;          // 本程序运行时的超时时间。
-  char pname[51];        // 本程序运行时的程序名。
+  char connstr[101];     // 数据库的连接参数。 // connect string
+  char tname[31];        // 待清理的表名。//table which need to be cleaned
+  char keycol[31];       // 待清理的表的唯一键字段名。// unique key column of the table
+  char where[1001];      // 待清理的数据需要满足的条件。// condition of the data which need to be cleaned
+  char starttime[31];    // 程序运行的时间区间。// time interval of the program
+  int  timeout;          // 本程序运行时的超时时间。// timeout of the program
+  char pname[51];        // 本程序运行时的程序名。// program name of the program
 } starg;
 
 // 显示程序的帮助
@@ -47,7 +50,7 @@ int main(int argc,char *argv[])
 
   if (logfile.Open(argv[1],"a+")==false)
   {
-    printf("打开日志文件失败（%s）。\n",argv[1]); return -1;
+    printf("fail to open the log（%s）。\n",argv[1]); return -1;
   }
 
   // 把xml解析到参数starg结构中
@@ -129,7 +132,7 @@ bool _xmltoarg(char *strxmlbuffer)
 
 void EXIT(int sig)
 {
-  logfile.Write("程序退出，sig=%d\n\n",sig);
+  logfile.Write("Program exit，sig=%d\n\n",sig);
 
   conn1.disconnect();
   conn2.disconnect();
@@ -142,14 +145,15 @@ bool _deletetable()
 {
   CTimer Timer;
 
-  char tmpvalue[51];    // 存放从表提取待删除记录的唯一键的值。
+  char tmpvalue[51];    // save unique key value from table which will be delted
 
-  // 从表提取待删除记录的唯一键。
+  // 从表提取待删除记录的唯一键。//get unique key value from table which will be delted
   sqlstatement stmtsel(&conn1);
   stmtsel.prepare("select %s from %s %s",starg.keycol,starg.tname,starg.where);
   stmtsel.bindout(1,tmpvalue,50);
 
-  // 拼接绑定删除SQL语句where 唯一键 in (...)的字符串。
+  //bind delete sql statement delete from table where unique key in (...)
+  // 拼接绑定删除SQL语句where 唯一键 in (...)的字符串。 
   char bindstr[2001];    
   char strtemp[11];
 

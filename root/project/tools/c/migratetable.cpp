@@ -1,7 +1,10 @@
 /*
- *  程序名：migratetable.cpp，本程序是数据中心的公共功能模块，用于迁移表中的数据。
- *  作者：吴从周。
+ * Program Name: migratetable This program is a public function module of the data center, used for migrating data in tables.
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/9
 */
+
 #include "_tools.h"
 
 struct st_arg
@@ -48,7 +51,7 @@ int main(int argc,char *argv[])
 
   if (logfile.Open(argv[1],"a+")==false)
   {
-    printf("打开日志文件失败（%s）。\n",argv[1]); return -1;
+    printf("fail to open log（%s）。\n",argv[1]); return -1;
   }
 
   // 把xml解析到参数starg结构中
@@ -137,7 +140,7 @@ bool _xmltoarg(char *strxmlbuffer)
 
 void EXIT(int sig)
 {
-  logfile.Write("程序退出，sig=%d\n\n",sig);
+  logfile.Write("exit program，sig=%d\n\n",sig);
 
   conn1.disconnect();
   conn2.disconnect();
@@ -150,18 +153,18 @@ bool _migratetable()
 {
   CTimer Timer;
 
-  // 从数据字典中获取表中全部的字段名。
+  // 从数据字典中获取表中全部的字段名。// get all columns of table from data dictionary.
   CTABCOLS TABCOLS;
 
   // 获取待迁移数据表的字段名，用starg.srctname或starg.dsttname都可以。
   if (TABCOLS.allcols(&conn2,starg.dsttname)==false)
   {
-    logfile.Write("表%s不存在。\n",starg.dsttname); return false;
+    logfile.Write("table %s doesn't exist。\n",starg.dsttname); return false;
   }
 
   char tmpvalue[51];    // 从数据源表查到的需要迁移记录的key字段的值。
 
-  // 从数据源表提取待迁移记录的唯一键，无需排序。
+  // 从数据源表提取待迁移记录的唯一键，无需排序。// get key values of records from source table which will be migrated.
   sqlstatement stmtsel(&conn1);
   stmtsel.prepare("select %s from %s %s",starg.keycol,starg.srctname,starg.where);
   stmtsel.bindout(1,tmpvalue,50);

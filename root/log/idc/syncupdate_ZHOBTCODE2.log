@@ -1,0 +1,21 @@
+2023-06-09 20:06:41 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:06:41 stmtdel.execute() failed.
+delete from T_ZHOBTCODE2 
+1146,Table 'mysql.T_ZHOBTCODE2' doesn't exist
+2023-06-09 20:10:58 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:10:58 stmtdel.execute() failed.
+delete from T_ZHOBTCODE2 
+1146,Table 'mysql.T_ZHOBTCODE2' doesn't exist
+2023-06-09 20:13:03 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:13:03 stmtdel.execute() failed.
+delete from T_ZHOBTCODE2 
+1146,Table 'mysql.T_ZHOBTCODE2' doesn't exist
+2023-06-09 20:14:14 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:14:14 stmtins.execute() failed.
+insert into T_ZHOBTCODE2(stid,cityname,provname,lat,lon,altitude,upttime,keyid) select obtid,cityname,provname,lat,lon,height/10,upttime,keyid from LK_ZHOBTCODE1 
+1054,Unknown column 'stid' in 'field list'
+2023-06-09 20:30:07 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:30:07 stmtins.execute() failed.
+insert into T_ZHOBTCODE2(stid,cityname,provname,lat,lon,altitude,upttime,keyid) select obtid,cityname,provname,lat,lon,height/10,upttime,keyid from LK_ZHOBTCODE1 
+1054,Unknown column 'stid' in 'field list'
+2023-06-09 20:32:08 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:32:08 stmtins.execute() failed.
+insert into T_ZHOBTCODE2(stid,cityname,provname,lat,lon,altitude,upttime,keyid) select obtid,cityname,provname,lat,lon,height/10,upttime,keyid from LK_ZHOBTCODE1 
+1054,Unknown column 'altitude' in 'field list'
+2023-06-09 20:35:24 sync LK_ZHOBTCODE1 to T_ZHOBTCODE2 ...2023-06-09 20:35:24 stmtins.execute() failed.
+insert into T_ZHOBTCODE2(stid) select obtid,cityname,provname,lat,lon,height/10,upttime,keyid from LK_ZHOBTCODE1 
+1136,Column count doesn't match value count at row 1

@@ -1,7 +1,10 @@
+
 /*
- *  程序名：syncincrementex.cpp，本程序是数据中心的公共功能模块，采用增量的方法同步MySQL数据库之间的表。
- *  注意，本程序不使用Federated引擎。
- *  作者：吴从周。
+ * Program Name: syncincrementex.cpp update slave data base using an incremental method
+ * warning: this program does not use Federated engine.
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/9
 */
 #include "_tools.h"
 

@@ -29,9 +29,10 @@ MYSQLCPP = /home/cis623-vm/root/project/public/db/mysql/_mysql.cpp
 # 编译参数。
 CFLAGS = -g
 
-all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb
-#  xmltodb syncupdate syncincrement syncincrementex\
-     deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle\
+all: procctl checkproc  gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb syncupdate syncincrement\
+	 deletetable syncincrementex migratetable
+#     
+      #migratetable xmltodb_oracle deletetable_oracle migratetable_oracle\
      dminingoracle syncupdate_oracle syncincrement_oracle syncincrementex_oracle\
      webserver inetd rinetd rinetdin 
 
@@ -113,26 +114,25 @@ xmltodb:xmltodb.cpp _tools.h _tools.cpp
 #syncincrementex_oracle:syncincrementex_oracle.cpp _tools_oracle.h _tools_oracle.cpp
 #	g++ $(CFLAGS) -o syncincrementex_oracle syncincrementex_oracle.cpp _tools_oracle.cpp $(PUBINCL) $(PUBCPP) $(ORAINCL) $(ORALIB) $(ORALIBS) $(ORACPP) -lm -lc
 #	cp syncincrementex_oracle ../bin/.
+syncupdate:syncupdate.cpp _tools.h _tools.cpp
+	g++ $(CFLAGS) -o syncupdate syncupdate.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp syncupdate ../bin/.
 
-#syncupdate:syncupdate.cpp _tools.h _tools.cpp
-#	g++ $(CFLAGS) -o syncupdate syncupdate.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp syncupdate ../bin/.
+syncincrement:syncincrement.cpp _tools.h _tools.cpp
+	g++ $(CFLAGS) -o syncincrement syncincrement.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS)  -lm -lc
+	cp syncincrement ../bin/.
 
-#syncincrement:syncincrement.cpp _tools.h _tools.cpp
-#	g++ $(CFLAGS) -o syncincrement syncincrement.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp syncincrement ../bin/.
+syncincrementex:syncincrementex.cpp _tools.h _tools.cpp
+	g++ $(CFLAGS) -o syncincrementex syncincrementex.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp syncincrementex ../bin/.
 
-#syncincrementex:syncincrementex.cpp _tools.h _tools.cpp
-#	g++ $(CFLAGS) -o syncincrementex syncincrementex.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp syncincrementex ../bin/.
+deletetable:deletetable.cpp
+	g++ $(CFLAGS) -o deletetable deletetable.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp deletetable ../bin/.
 
-#deletetable:deletetable.cpp
-#	g++ $(CFLAGS) -o deletetable deletetable.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp deletetable ../bin/.
-
-#migratetable:migratetable.cpp _tools.h _tools.cpp
-#	g++ $(CFLAGS) -o migratetable migratetable.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLLIB) $(MYSQLLIBS) $(MYSQLCPP) -lm -lc
-#	cp migratetable ../bin/.
+migratetable:migratetable.cpp _tools.h _tools.cpp
+	g++ $(CFLAGS) -o migratetable migratetable.cpp _tools.cpp $(PUBINCL) $(PUBCPP) $(MYSQLINCL) $(MYSQLCPP) $(MYSQLLIB) $(MYSQLLIBS) -lm -lc
+	cp migratetable ../bin/.
 
 #webserver:webserver.cpp 
 #	g++ $(CFLAGS) -o webserver webserver.cpp $(PUBINCL) $(PUBCPP) $(ORAINCL) $(ORALIB) $(ORALIBS) $(ORACPP) -lpthread -lm -lc
@@ -151,8 +151,8 @@ xmltodb:xmltodb.cpp _tools.h _tools.cpp
 #	cp rinetdin ../bin/.
 
 clean:
-	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb
-#	rm -f  syncupdate syncincrement syncincrementex
-#	rm -f deletetable migratetable xmltodb_oracle deletetable_oracle migratetable_oracle
+	rm -f procctl checkproc gzipfiles deletefiles ftpgetfiles ftpputfiles tcpputfiles fileserver tcpgetfiles execsql dminingmysql xmltodb syncupdate
+	rm -f syncincrement syncincrementex deletetable migratetable
+#	rm -f    xmltodb_oracle deletetable_oracle migratetable_oracle
 #	rm -f dminingoracle syncupdate_oracle syncincrement_oracle syncincrementex_oracle
 #	rm -f webserver inetd rinetd rinetdin 

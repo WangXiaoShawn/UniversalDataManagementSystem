@@ -1,6 +1,8 @@
 /*
- *  程序名：syncincrement.cpp，本程序是数据中心的公共功能模块，采用增量的方法同步MySQL数据库之间的表。
- *  作者：吴从周。
+ * Program Name: sysncincrement update slave data base using an incremental method
+ * Author: WangXiao
+ * Email: WANGXIAOJOBHUNTING @GMAIL.COM
+ * Date: 2023/6/4
 */
 #include "_tools.h"
 
@@ -54,7 +56,7 @@ int main(int argc,char *argv[])
 
   if (logfile.Open(argv[1],"a+")==false)
   {
-    printf("打开日志文件失败（%s）。\n",argv[1]); return -1;
+    printf("fail to open logfile (%s)。\n",argv[1]); return -1;
   }
 
   // 把xml解析到参数starg结构中
@@ -86,7 +88,7 @@ int main(int argc,char *argv[])
     // 获取starg.localtname表的全部列。
     if (TABCOLS.allcols(&connloc,starg.localtname)==false)
     {
-      logfile.Write("表%s不存在。\n",starg.localtname); EXIT(-1); 
+      logfile.Write("table %s not exist。\n",starg.localtname); EXIT(-1); 
     }
 
     if (strlen(starg.remotecols)==0)  strcpy(starg.remotecols,TABCOLS.m_allcols);
@@ -219,7 +221,7 @@ bool _xmltoarg(char *strxmlbuffer)
 
 void EXIT(int sig)
 {
-  logfile.Write("程序退出，sig=%d\n\n",sig);
+  logfile.Write("program exit，sig=%d\n\n",sig);
 
   connloc.disconnect();
 
@@ -274,10 +276,10 @@ bool _syncincrement(bool &bcontinue)
   // 从远程表查找自增字段的值大于maxkeyvalue的记录。
   char remkeyvalue[51];    // 从远程表查到的需要同步记录的key字段的值。
   sqlstatement stmtsel(&connrem);
+  //select keycol from remotetable where keycol > :1 (here is the max increas-value)AND other_conditions = TRUE order by keycol
   stmtsel.prepare("select %s from %s where %s>:1 %s order by %s",starg.remotekeycol,starg.remotetname,starg.remotekeycol,starg.where,starg.remotekeycol);
   stmtsel.bindin(1,&maxkeyvalue);
   stmtsel.bindout(1,remkeyvalue,50);
-
   // 拼接绑定同步SQL语句参数的字符串（:1,:2,:3,...,:starg.maxcount）。
   char bindstr[2001];    // 绑定同步SQL语句参数的字符串。
   char strtemp[11];
