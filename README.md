@@ -1,4 +1,4 @@
-# Full-Stack-C-Project-for-Nationwide-Site-Monitoring
+#  Universal Data Management System
 ## **Project Introduction**
 
 The **Universal Data Management System** is a powerful automation tool designed to scan specified directories, gather newly generated data, and upload it to the data center using proprietary FTP/TCP protocols. In addition, the data center periodically auto-scans certain directories, scans and organizes files, and incorporates them into the database. All operations are recorded in the log file.
